@@ -1,0 +1,97 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Quesion 3";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odd or Even Checker</title>
+    <style>
+        body {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            margin: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Odd or Even Checker</h1>
+        <label for="number">Enter a number:</label>
+        <input type="text" id="number" placeholder="Number">
+        <button onclick="checkNumber()">Check</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+
+        function checkNumber() {
+            //user input
+            const input = document.getElementById('number').value.trim();
+
+            //validation
+            if (input === '') {
+                document.getElementById('result').textContent = "Please enter a number.";
+                return;
+            }
+
+            //make sure that letters and symbols are not allowed
+            const number = Number(input);
+            if (isNaN(number) || !Number.isFinite(number)) {
+                //checking of input if it contains non-numeric characters
+                if (/[^0-9.-]/.test(input)) {
+                    document.getElementById('result').textContent = "Letters and symbols are not valid. Please enter a number.";
+                } else {
+                    document.getElementById('result').textContent = "Jollibee";
+                }
+                return;
+            }
+
+            //numbers exceeding 1000000000000 are not valid anymore
+            if (Math.abs(number) > 1e12) {
+                document.getElementById('result').textContent = "Number is too large.";
+                return;
+            }
+
+            //checking if odd or even
+            if (number % 2 === 0) {
+                document.getElementById('result').textContent = `${number} -> Jolly`;
+            } else {
+                document.getElementById('result').textContent = `${number} -> Bee`;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
