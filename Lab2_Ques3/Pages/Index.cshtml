@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Quesion 3";
+    ViewData["Title"] = "Question 3";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -11,41 +11,66 @@
     <title>Odd or Even Checker</title>
     <style>
         body {
-            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
+            background-color: lightblue;
         }
 
-        .container {
+        .content-container {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+            text-align: center;
+            width: 100%;
         }
 
         input {
-            padding: 8px;
-            font-size: 16px;
-            margin: 10px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+            max-width: 250px;
+            border-radius: 15px;
+            background-color: #f0f0f0;
         }
 
         #result {
             margin-top: 20px;
             font-weight: bold;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            width: fit-content;
+            max-width: 100%;
+            word-wrap: break-word;
+            display: none;
         }
+
+        button {
+            color: blue;
+            border-radius: 15px;
+            padding: 10px 20px;
+            background-color: darkgray;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: lightgray;
+                color: white;
+            }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Odd or Even Checker</h1>
+    <div class="content-container">
+        <h1>Odd or Even Number Checker</h1>
         <label for="number">Enter a number:</label>
         <input type="text" id="number" placeholder="Number">
         <button onclick="checkNumber()">Check</button>
@@ -53,43 +78,47 @@
     </div>
 
     <script>
-
         function checkNumber() {
-            //user input
+            // user input
             const input = document.getElementById('number').value.trim();
+            const resultElement = document.getElementById('result');
 
-            //validation
+            // validation
             if (input === '') {
-                document.getElementById('result').textContent = "Please enter a number.";
+                resultElement.textContent = "Please enter a number.";
+                resultElement.style.display = "block";
                 return;
             }
 
-            //make sure that letters and symbols are not allowed
+            // convert input to number
             const number = Number(input);
-            if (isNaN(number) || !Number.isFinite(number)) {
-                //checking of input if it contains non-numeric characters
-                if (/[^0-9.-]/.test(input)) {
-                    document.getElementById('result').textContent = "Letters and symbols are not valid. Please enter a number.";
-                } else {
-                    document.getElementById('result').textContent = "Jollibee";
-                }
+
+            // if user input is a letter or symbol, print jabi
+            if (isNaN(number)) {
+                resultElement.textContent = "Jollibee";
+                resultElement.style.display = "block";
                 return;
             }
 
-            //numbers exceeding 1000000000000 are not valid anymore
+            // numbers exceeding 1 trillion are not valid
             if (Math.abs(number) > 1e12) {
-                document.getElementById('result').textContent = "Number is too large.";
+                resultElement.textContent = "Number is too large.";
+                resultElement.style.display = "block";
                 return;
             }
 
-            //checking if odd or even
+            // checking if odd or even
             if (number % 2 === 0) {
-                document.getElementById('result').textContent = `${number} -> Jolly`;
+                resultElement.textContent = `${number} -> Jolly`;
             } else {
-                document.getElementById('result').textContent = `${number} -> Bee`;
+                resultElement.textContent = `${number} -> Bee`;
             }
+
+            // show the result
+            resultElement.style.display = "block";
         }
     </script>
+
 </body>
 </html>
 
